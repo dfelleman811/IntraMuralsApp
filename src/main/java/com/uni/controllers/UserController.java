@@ -59,7 +59,7 @@ public class UserController {
     };
 
     public void logout(Context ctx) {
-        ctx.req.getSession().invalidate();
+        ctx.req().getSession().invalidate();
     }
 
 

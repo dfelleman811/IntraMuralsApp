@@ -2,17 +2,28 @@ package com.uni.app;
 
 import com.uni.controllers.*;
 import com.uni.daos.*;
+import com.uni.datautils.ConnectionUtil;
 import com.uni.services.*;
 import io.javalin.Javalin;
+
 import java.io.IOException;
 
 public class App {
 
     public static void main(String[] args) throws IOException {
+        ConnectionUtil.populateH2Database(ConnectionUtil.getConnection());
+
+
         Javalin app = Javalin.create(config -> {
-            config.enableCorsForAllOrigins();
+            config.plugins.enableCors(cors -> {
+                cors.add(host -> {
+                    host.anyHost();
+//                    host.reflectClientOrigin = true;
+                });
+            });
         });
 
+        app.before(ctx -> ctx.header("Access-Control-Allow-Origin", "*"));
 
         //DAOs
         GameDAO gameDAO = GameDAO.getSingleton();

@@ -12,6 +12,8 @@ import java.util.Properties;
 
 public class ConnectionUtil {
 
+    private static Connection connection = null;
+
     public static Connection getConnection() {
         try {
             InputStream input = ConnectionUtil.class.getClassLoader().getResourceAsStream("database.properties");
@@ -19,17 +21,16 @@ public class ConnectionUtil {
             prop.load(input);
             String testMode = prop.getProperty("test-mode");
 
-            // If running tests, use H2 in-memory database, otherwise, use Postgres database
-            if (testMode.equals("true")) {
+            // If connection is null, create a new one
+            if (connection == null) {
+                Class.forName(prop.getProperty("driver"));
                 Connection conn = DriverManager.getConnection("jdbc:h2:mem:test");
 
                 return conn;
             } else {
-                //example connection string jdbc:postgresql://localhost:5432/postgres?user=postgres&password=password
-                Connection conn = DriverManager.getConnection(System.getenv("DB_CONNECTION_URL"));
-                return conn;
+                return connection;
             }
-        } catch (SQLException | IOException e) {
+        } catch (SQLException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new DatabaseConnectionException();
         }
