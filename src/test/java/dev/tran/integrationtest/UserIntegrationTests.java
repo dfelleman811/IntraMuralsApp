@@ -13,7 +13,8 @@ import io.javalin.Javalin;
 import io.javalin.plugin.openapi.OpenApiOptions;
 import io.javalin.plugin.openapi.OpenApiPlugin;
 import io.javalin.plugin.openapi.ui.SwaggerOptions;
-import io.javalin.test.JavalinTest;
+
+import io.javalin.testtools.JavalinTest;
 import io.swagger.v3.oas.models.info.Info;
 import okhttp3.Response;
 import org.junit.jupiter.api.*;
@@ -68,7 +69,7 @@ public class UserIntegrationTests {
             requestJson.put("username", "testing123");
             requestJson.put("password", "12345");
 
-            Response resp = client.post("/login", Collections.emptyMap(), Collections.emptyMap(), requestJson);
+            Response resp = client.post("/login", requestJson);
 
             String actualResponseJson = resp.body().string();
             String expectedResponseJson = "{\"userId\":1,\"username\":\"testing123\",\"password\":\"12345\",\"role\":\"player\",\"heightInches\":70,\"weightLbs\":150,\"profilePic\":null,\"hideBiometrics\":true}";
