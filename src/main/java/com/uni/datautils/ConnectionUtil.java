@@ -24,7 +24,7 @@ public class ConnectionUtil {
             // If connection is null, create a new one
             if (connection == null) {
                 Class.forName(prop.getProperty("driver"));
-                Connection conn = DriverManager.getConnection("jdbc:h2:mem:test");
+                Connection conn = DriverManager.getConnection("jdbc:h2:mem:test", "sa", "");
 
                 return conn;
             } else {

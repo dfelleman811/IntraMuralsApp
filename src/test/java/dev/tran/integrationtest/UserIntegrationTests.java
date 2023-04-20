@@ -33,12 +33,12 @@ public class UserIntegrationTests {
         }
     }
 
-    @AfterEach
-    public void clearDatabase() throws SQLException {
-        try (Connection conn = ConnectionUtil.getConnection()) {
-            ConnectionUtil.clearH2Database(conn);
-        }
-    }
+//    @AfterEach
+//    public void clearDatabase() throws SQLException {
+//        try (Connection conn = ConnectionUtil.getConnection()) {
+//            ConnectionUtil.clearH2Database(conn);
+//        }
+//    }
 
     @Test
     public void demo() {
