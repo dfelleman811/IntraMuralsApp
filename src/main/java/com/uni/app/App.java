@@ -23,7 +23,7 @@ public class App {
             });
         });
 
-        app.before(ctx -> ctx.header("Access-Control-Allow-Origin", "*"));
+//        app.before(ctx -> ctx.header("Access-Control-Allow-Origin", "*"));
 
         //DAOs
         GameDAO gameDAO = GameDAO.getSingleton();
