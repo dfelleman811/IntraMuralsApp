@@ -17,7 +17,7 @@ public class App {
         Javalin app = Javalin.create(config -> {
             config.plugins.enableCors(cors -> {
                 cors.add(host -> {
-                    host.anyHost();
+                    host.allowHost("http://http://imss-test-df.s3-website-us-east-1.amazonaws.com/");
 //                    host.reflectClientOrigin = true;
                 });
             });
